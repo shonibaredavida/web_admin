@@ -59,31 +59,31 @@ class _NavAppBarState extends State<NavAppBar> {
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {},
-                child: text("Home", textColor: Colors.white),
+                child: text("Home", color: Colors.white),
               ),
             ),
-            text(" | ", textColor: Colors.white),
+            text(" | ", color: Colors.white),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {},
-                child: text("Users Pie Chart", textColor: Colors.white),
+                child: text("Users Pie Chart", color: Colors.white),
               ),
             ),
-            text(" | ", textColor: Colors.white),
+            text(" | ", color: Colors.white),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {},
-                child: text("Sellers PieChart", textColor: Colors.white),
+                child: text("Sellers PieChart", color: Colors.white),
               ),
             ),
-            text(" | ", textColor: Colors.white),
+            text(" | ", color: Colors.white),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {},
-                child: text("Logout", textColor: Colors.white),
+                child: text("Logout", color: Colors.white),
               ),
             )
           ],

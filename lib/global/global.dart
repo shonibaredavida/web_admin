@@ -86,11 +86,15 @@ TextField textField(
 }
 
 Widget text(String data,
-    {Color? textColor, double? letterSpacing, double? fontSize}) {
+    {Color? color,
+    double? letterSpacing,
+    double? fontSize,
+    FontWeight? fontWeight}) {
   return Text(
     data,
     style: TextStyle(
-        color: textColor ?? Colors.white,
+        fontWeight: fontWeight ?? FontWeight.normal,
+        color: color ?? Colors.white,
         letterSpacing: letterSpacing ?? 2,
         fontSize: fontSize ?? 16),
   );
