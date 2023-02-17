@@ -51,12 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: DefaultBackgroundColor,
       appBar: NavAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Center(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
               child: text(
                 "     $liveTime\n$liveDate",
                 fontSize: 20,
@@ -65,11 +65,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
+            //verified users & blocked users
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: null,
+                    child: Image.asset(
+                      "images/verified_users.png",
+                      width: 200,
+                    )),
+                const SizedBox(
+                  width: 200,
+                ),
+                GestureDetector(
+                    onTap: null,
+                    child: Image.asset(
+                      "images/blocked_users.png",
+                      width: 200,
+                    )),
+              ],
+            ),
+            const SizedBox(
+              height: 100,
+            ), //activated users & blocked sellers
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: null,
+                    child: Image.asset(
+                      "images/verified_seller.png",
+                      width: 200,
+                    )),
+                const SizedBox(
+                  width: 200,
+                ),
+                GestureDetector(
+                    onTap: null,
+                    child: Image.asset(
+                      "images/blocked_seller.png",
+                      width: 200,
+                    )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
