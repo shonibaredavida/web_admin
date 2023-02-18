@@ -128,7 +128,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 200,
                 ),
                 GestureDetector(
-                    onTap: null,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BlockedSellersScreen()));
+                    },
                     child: Image.asset(
                       "images/blocked_seller.png",
                       width: 200,

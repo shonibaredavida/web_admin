@@ -72,7 +72,12 @@ class _NavAppBarState extends State<NavAppBar> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
+                },
                 child: text("Home", color: Colors.white),
               ),
             ),
