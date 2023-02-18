@@ -36,7 +36,7 @@ class _BlockedSellersScreenState extends State<BlockedSellersScreen> {
     });
   }
 
-  void blockVerifiedSeller(sellerID) {
+  void blockSeller(sellerID) {
     Map<String, dynamic> sellerDataMap = {"status": "approved"};
     FirebaseFirestore.instance
         .collection("sellers")
@@ -61,7 +61,7 @@ class _BlockedSellersScreenState extends State<BlockedSellersScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.red),
             ),
-            content: text("Do you want to activate this account ?",
+            content: text("Do you want to activate this Seller's Account ?",
                 letterSpacing: 2,
                 fontSize: 16,
                 color: Colors.black,
@@ -78,7 +78,7 @@ class _BlockedSellersScreenState extends State<BlockedSellersScreen> {
               elevatedButton(
                   onPressed: () {
                     if (dev) printo('Admin Chose to activate seller');
-                    blockVerifiedSeller(sellerDocumentID);
+                    blockSeller(sellerDocumentID);
                     Navigator.pop(context);
                   },
                   padding:

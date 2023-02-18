@@ -36,7 +36,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
     });
   }
 
-  void blockVerifiedUser(userID) {
+  void blockUser(userID) {
     Map<String, dynamic> userDataMap = {"status": "approved"};
     FirebaseFirestore.instance
         .collection("users")
@@ -60,7 +60,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.red),
             ),
-            content: text("Do you want to activate this account ?",
+            content: text("Do you want to activate this User's Account ?",
                 letterSpacing: 2,
                 fontSize: 16,
                 color: Colors.black,
@@ -77,7 +77,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
               elevatedButton(
                   onPressed: () {
                     if (dev) printo('Admin Chose to activate user');
-                    blockVerifiedUser(userDocumentID);
+                    blockUser(userDocumentID);
                     Navigator.pop(context);
                   },
                   padding:
