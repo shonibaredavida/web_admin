@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:web_admin/global/global.dart';
+import 'package:web_admin/users/blocked_users_screen.dart';
 import 'package:web_admin/users/verified_users_screen.dart';
 import 'package:web_admin/widgets/nav_appbar.dart';
 import 'package:intl/intl.dart';
@@ -89,7 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 200,
                 ),
                 GestureDetector(
-                    onTap: null,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BlockedUsersScreen()));
+                    },
                     child: Image.asset(
                       "images/blocked_users.png",
                       width: 200,

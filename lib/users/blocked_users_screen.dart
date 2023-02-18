@@ -4,41 +4,47 @@ import 'package:web_admin/functions/functions.dart';
 import 'package:web_admin/global/global.dart';
 import 'package:web_admin/widgets/nav_appbar.dart';
 
-class VerifiedUsersScreen extends StatefulWidget {
-  const VerifiedUsersScreen({super.key});
+class BlockedUsersScreen extends StatefulWidget {
+  const BlockedUsersScreen({super.key});
 
   @override
-  State<VerifiedUsersScreen> createState() => _VerifiedUsersScreenState();
+  State<BlockedUsersScreen> createState() => _BlockedUsersScreenState();
 }
 
-class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
-  QuerySnapshot? approvedUsersSnapshot;
-  getVerifiedUsers() async {
+class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
+  QuerySnapshot? blockedUsersSnapshot;
+  getBlockedUsers() async {
     await FirebaseFirestore.instance
         .collection("users")
-        .where('status', isEqualTo: "approved")
+        .where('status', isEqualTo: "not approved")
         .get()
-        .then((verifiedUsersSnapshot) {
-      if (verifiedUsersSnapshot.docs.isNotEmpty) {
-        if (dev) printo("there are Verified User data");
+        .then((notApprovedUsersSnapshot) {
+      if (notApprovedUsersSnapshot.docs.isNotEmpty) {
+        if (dev) printo("there are Blocked User data");
         setState(() {
-          approvedUsersSnapshot = verifiedUsersSnapshot;
+          blockedUsersSnapshot = notApprovedUsersSnapshot;
         });
       } else {
         if (dev) printo("there is NO Verified User data");
+        return Center(
+            child: text("No Record of Blocked Users",
+                fontSize: 30,
+                letterSpacing: 4,
+                fontWeight: FontWeight.w900,
+                color: Colors.black));
       }
     });
   }
 
   void blockVerifiedUser(userID) {
-    Map<String, dynamic> userDataMap = {"status": "not approved"};
+    Map<String, dynamic> userDataMap = {"status": "approved"};
     FirebaseFirestore.instance
         .collection("users")
         .doc(userID)
         .update(userDataMap)
         .whenComplete(() {
-      if (dev) printo('User blocked successfully');
-      showReusableSnackBar("Users has been blocked successfully!!!", context);
+      if (dev) printo('User activated successfully');
+      showReusableSnackBar("Users has been activated successfully!!!", context);
     }).then((value) => Navigator.pop(context));
   }
 
@@ -48,13 +54,13 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
         builder: (context) {
           return AlertDialog(
             title: Center(
-              child: text("Block Account",
+              child: text("Activate Account",
                   fontSize: 25,
                   letterSpacing: 2,
                   fontWeight: FontWeight.bold,
                   color: Colors.red),
             ),
-            content: text("Do you want to block this account ?",
+            content: text("Do you want to activate this account ?",
                 letterSpacing: 2,
                 fontSize: 16,
                 color: Colors.black,
@@ -62,7 +68,7 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
             actions: [
               elevatedButton(
                   onPressed: () {
-                    if (dev) printo('Admin chose NOT to block user');
+                    if (dev) printo('Admin chose NOT to activate user');
                     Navigator.pop(context);
                   },
                   padding:
@@ -70,7 +76,7 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
                   title: "No"),
               elevatedButton(
                   onPressed: () {
-                    if (dev) printo('Admin Chose to block user');
+                    if (dev) printo('Admin Chose to activate user');
                     blockVerifiedUser(userDocumentID);
                     Navigator.pop(context);
                   },
@@ -84,23 +90,23 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
 
   @override
   void initState() {
-    getVerifiedUsers();
+    getBlockedUsers();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget verifiedUserDesign() {
-      if (approvedUsersSnapshot != null) {
+    Widget blockedUserDesign() {
+      if (blockedUsersSnapshot != null) {
         return ListView.builder(
           padding: const EdgeInsets.all(10),
-          itemCount: approvedUsersSnapshot!.docs.length,
+          itemCount: blockedUsersSnapshot!.docs.length,
           itemBuilder: (context, index) {
             return Column(
               children: [
                 index == 0
                     ? text(
-                        "${approvedUsersSnapshot!.docs.length} Verified Users",
+                        "${blockedUsersSnapshot!.docs.length} Blocked Users",
                         color: Colors.black,
                         fontSize: 24,
                       )
@@ -117,22 +123,22 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(approvedUsersSnapshot!
+                              image: NetworkImage(blockedUsersSnapshot!
                                   .docs[index]
                                   .get("photoUrl")),
                             ),
                           ),
                         ),
                       ),
-                      text(approvedUsersSnapshot!.docs[index].get("name"),
+                      text(blockedUsersSnapshot!.docs[index].get("name"),
                           fontSize: 16, color: Colors.black),
-                      text(approvedUsersSnapshot!.docs[index].get("email"),
+                      text(blockedUsersSnapshot!.docs[index].get("email"),
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                       GestureDetector(
                         onTap: () {
-                          showDialogBox(approvedUsersSnapshot!.docs[index].id);
+                          showDialogBox(blockedUsersSnapshot!.docs[index].id);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 8.0, top: 18),
@@ -140,11 +146,11 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                "images/block.png",
+                                "images/activate.png",
                                 width: 45,
                               ),
                               sizedBox(width: 10),
-                              text(" Block now", color: Colors.redAccent),
+                              text(" Activate now", color: Colors.green),
                             ],
                           ),
                         ),
@@ -157,9 +163,9 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
           },
         );
       } else {
-        if (dev) printo('No Record of Verified Users');
+        if (dev) printo('No Record of Blocked Users');
         return Center(
-            child: text("No Record of Verified Users",
+            child: text("No Record of Blocked Users",
                 fontSize: 30,
                 letterSpacing: 4,
                 fontWeight: FontWeight.w900,
@@ -169,12 +175,12 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
 
     return Scaffold(
       appBar: const NavAppBar(
-        title: "Verfied Users Accounts",
+        title: "Blocked Users Accounts",
       ),
       body: Center(
         child: sizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          child: verifiedUserDesign(),
+          child: blockedUserDesign(),
         ),
       ),
     );
