@@ -14,7 +14,7 @@ Color appDeeperPrimaryColor = Colors.deepPurple;
 
 printo(String text) {
   // ignore: avoid_print
-  return print(text);
+  return print("WE WE WE WE $text");
 }
 
 SizedBox sizedBox({double? width, double? height, Widget? child}) {
