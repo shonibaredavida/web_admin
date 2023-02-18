@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/global/global.dart';
 import 'package:web_admin/widgets/nav_appbar.dart';
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: null,
+                    onTap: () {},
                     child: Image.asset(
                       "images/verified_seller.png",
                       width: 200,

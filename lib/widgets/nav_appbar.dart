@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:web_admin/authentication/login_screen.dart';
 import 'package:web_admin/global/global.dart';
 import 'package:web_admin/home_screen/home_screen.dart';
 
@@ -82,7 +84,13 @@ class _NavAppBarState extends State<NavAppBar> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut().whenComplete(() =>
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen())));
+                },
                 child: text("Logout", color: Colors.white),
               ),
             )

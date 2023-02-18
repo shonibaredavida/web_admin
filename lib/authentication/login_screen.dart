@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_admin/functions/functions.dart';
 import 'package:web_admin/global/global.dart';
+import 'package:web_admin/home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -66,10 +68,36 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void adminValidation() {
+  void adminValidation() async {
     if (email.isNotEmpty && password.isNotEmpty) {
       if (dev) printo("Logging Admin in via firebase");
       //validate and log admin in
+      User? currentAdmin;
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      )
+          .then((value) {
+        currentAdmin = value.user;
+      }).catchError((error) {
+        showReusableSnackBar("Error Occured: ${error.toString()}", context);
+      });
+      if (dev) printo(currentAdmin!.uid);
+      //check if admin data exisit in firestore
+      await FirebaseFirestore.instance
+          .collection("admins")
+          .doc(currentAdmin!.uid)
+          .get()
+          .then((snapshot) {
+        if (snapshot.exists) {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        } else {
+          showReusableSnackBar(
+              "No record found, You are not an Admin", context);
+        }
+      });
     } else {
       if (dev) printo("No Admin email or password inputed");
       showReusableSnackBar("Email & Password is Required", context);
