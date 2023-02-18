@@ -15,59 +15,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String email = "";
   String password = "";
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: defaultBackgroundColor,
-      body: Stack(
-        children: [
-          Center(
-            child: sizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Column(
-                children: [
-                  Image.asset("images/admin.png"),
-                  sizedBox(
-                    height: 15,
-                  ),
-                  textField(
-                      onChanged: (value) {
-                        email = value;
-                      },
-                      hintText: "Email",
-                      icon: Icons.mail),
-                  sizedBox(
-                    height: 15,
-                  ),
-                  textField(
-                      onChanged: (value) {
-                        password = value;
-                      },
-                      hintText: "Password",
-                      obscureText: true,
-                      icon: Icons.password),
-                  sizedBox(
-                    height: 40,
-                  ),
-                  elevatedButton(
-                      onPressed: () {
-                        showReusableSnackBar(
-                            "checking Credential, Please Wait", context);
-                        adminValidation();
-                      },
-                      title: "Login",
-                      textColor: Colors.white,
-                      letterSpacing: 2,
-                      fontSize: 16)
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   void adminValidation() async {
     if (email.isNotEmpty && password.isNotEmpty) {
       if (dev) printo("Logging Admin in via firebase");
@@ -102,5 +49,58 @@ class _LoginScreenState extends State<LoginScreen> {
       if (dev) printo("No Admin email or password inputed");
       showReusableSnackBar("Email & Password is Required", context);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: defaultBackgroundColor,
+      body: Stack(
+        children: [
+          Center(
+            child: sizedBox(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: Column(
+                children: [
+                  Image.asset("images/admin.png"),
+                  sizedBox(
+                    height: 15,
+                  ),
+                  textField(
+                      onChanged: (value) {
+                        email = value;
+                      },
+                      hintText: "Email",
+                      icon: Icons.mail),
+                  sizedBox(
+                    height: 15,
+                  ),
+                  textField(
+                      onChanged: (value) {
+                        password = value;
+                      },
+                      hintText: "Password",
+                      obscureText: true,
+                      icon: Icons.admin_panel_settings),
+                  sizedBox(
+                    height: 40,
+                  ),
+                  elevatedButton(
+                      onPressed: () {
+                        showReusableSnackBar(
+                            "checking Credential, Please Wait", context);
+                        adminValidation();
+                      },
+                      title: "Login",
+                      textColor: Colors.white,
+                      letterSpacing: 2,
+                      fontSize: 16)
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
