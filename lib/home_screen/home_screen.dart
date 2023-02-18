@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:web_admin/global/global.dart';
+import 'package:web_admin/sellers/blocked_sellers_screen.dart';
+import 'package:web_admin/sellers/verified_sellers_screen.dart';
 import 'package:web_admin/users/blocked_users_screen.dart';
 import 'package:web_admin/users/verified_users_screen.dart';
 import 'package:web_admin/widgets/nav_appbar.dart';
@@ -110,7 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const VerifiedSellersScreen(),
+                        ),
+                      );
+                    },
                     child: Image.asset(
                       "images/verified_seller.png",
                       width: 200,
