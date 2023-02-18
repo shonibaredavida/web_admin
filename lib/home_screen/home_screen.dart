@@ -49,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DefaultBackgroundColor,
-      appBar: NavAppBar(),
+      backgroundColor: defaultBackgroundColor,
+      appBar: const NavAppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

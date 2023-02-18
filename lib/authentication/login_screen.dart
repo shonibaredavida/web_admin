@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:web_admin/functions/functions.dart';
 import 'package:web_admin/global/global.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,10 +11,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DefaultBackgroundColor,
+      backgroundColor: defaultBackgroundColor,
       body: Stack(
         children: [
           Center(
@@ -25,14 +29,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 15,
                   ),
                   textField(
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        email = value;
+                      },
                       hintText: "Email",
                       icon: Icons.mail),
                   sizedBox(
                     height: 15,
                   ),
                   textField(
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        password = value;
+                      },
                       hintText: "Password",
                       obscureText: true,
                       icon: Icons.password),
@@ -40,7 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                   ),
                   elevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showReusableSnackBar(
+                            "checking Credential, Please Wait", context);
+                        adminValidation();
+                      },
                       title: "Login",
                       textColor: Colors.white,
                       letterSpacing: 2,
@@ -52,5 +64,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+
+  void adminValidation() {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      if (dev) printo("Logging Admin in via firebase");
+      //validate and log admin in
+    } else {
+      if (dev) printo("No Admin email or password inputed");
+      showReusableSnackBar("Email & Password is Required", context);
+    }
   }
 }
