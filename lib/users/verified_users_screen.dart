@@ -54,7 +54,7 @@ class _VerifiedUsersScreenState extends State<VerifiedUsersScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.red),
             ),
-            content: text("Do you want to block this account ?",
+            content: text("Do you want to block this  User's Account ?",
                 letterSpacing: 2,
                 fontSize: 16,
                 color: Colors.black,
