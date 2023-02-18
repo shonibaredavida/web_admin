@@ -98,9 +98,11 @@ Widget text(String data,
     {Color? color,
     double? letterSpacing,
     double? fontSize,
+    TextAlign? textAlign,
     FontWeight? fontWeight}) {
   return Text(
     data,
+    textAlign: textAlign ?? TextAlign.start,
     style: TextStyle(
         fontWeight: fontWeight ?? FontWeight.normal,
         color: color ?? Colors.white,
