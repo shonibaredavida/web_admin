@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:web_admin/authentication/login_screen.dart';
 import 'package:web_admin/global/global.dart';
 import 'package:web_admin/home_screen/home_screen.dart';
+import 'package:web_admin/sellers/sellers_pie_chart_screen.dart';
+import 'package:web_admin/users/users_pie_chart_screen.dart';
 
 class NavAppBar extends StatefulWidget with PreferredSizeWidget {
   final String? title;
@@ -85,7 +87,12 @@ class _NavAppBarState extends State<NavAppBar> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UsersPieChartScreen()));
+                },
                 child: text("Users Pie Chart", color: Colors.white),
               ),
             ),
@@ -93,7 +100,12 @@ class _NavAppBarState extends State<NavAppBar> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SellersPieChartScreen()));
+                },
                 child: text("Sellers PieChart", color: Colors.white),
               ),
             ),
